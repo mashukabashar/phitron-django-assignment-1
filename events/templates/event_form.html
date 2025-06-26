@@ -1,11 +1,12 @@
-{% load static %}
+{% comment %} {% load static %} {% endcomment %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Event Form</title>
-    <link rel="stylesheet" href="{% static "css/output.css" %}">
+    {% comment %} <link rel="stylesheet" href="{% static "css/output.css" %}"> {% endcomment %}
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
 
@@ -16,10 +17,10 @@
     {% endif %}
    </div>
 
-   <form method="POST">
+   <form method="POST" class="space-y-5">
     {% csrf_token %}
     {{form.as_p}}
-    <button type="submit" class="mb-5 bg-rose-600 px-3 py-2 text-white mt-8 rounded-md">Submit</button>
+    <button type="submit" class="mb-5 bg-rose-600 px-3 py-2 text-white mt-5 rounded-md">Submit</button>
    </form>
 </div>
 </body>
