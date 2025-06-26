@@ -1,7 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from events.forms import EventModelForm
 from events.models import Category, Event, Participant
+from datetime import date
+from django.db.models import Q, Count, Max, Min, Avg
+from django.contrib import messages
 
 
 # Create your views here.
@@ -25,7 +28,19 @@ def home(request):
 
 
 def dashboard(request):
-    return render(request, "dashboard.html")
+
+    events=Event.objects.all()
+    total_event=events.count()
+
+    today_event= Event.objects.filter(date=date.today()).count()
+
+    past_events = Event.objects.filter(date__lt=date.today()).count()
+
+    future_events = Event.objects.filter(date__gt=date.today()).count()
+
+    context={"events":events, "total_event":total_event,"past_events":past_events, "future_events":future_events,"today_event":today_event}
+
+    return render(request, "dashboard.html", context)
 
 
 
@@ -64,7 +79,7 @@ def create_event(request):
 
 def view_event(request):
 
-    
+
     # events=Event.objects.all()
     # event1=Event.objects.get(id=1)
     # return render(request, "show_event.html",{"categories":categories, "event_1":event1})
