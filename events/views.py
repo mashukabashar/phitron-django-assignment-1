@@ -1,5 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from events.forms import EventModelForm
+from events.models import Category, Event, Participant
+
 
 # Create your views here.
 
@@ -14,11 +17,18 @@ from django.http import HttpResponse
 #     print("id type", type(id))
 #     return HttpResponse(f"This is specific event page {id}");
 
+
 def home(request):
     return HttpResponse("<h1 style='color:red'>Welcome To The Event Management System</h1>")
 
+
+
+
 def dashboard(request):
     return render(request, "dashboard.html")
+
+
+
 
 def test(request):
     names= ["Mashuka","Diya", "Ananna", "Priyongboda"]
@@ -31,3 +41,23 @@ def test(request):
              "count":count}
     
     return render(request, "test.html", context)
+
+
+
+
+def create_event(request):
+    participants=Participant.objects.all()
+    form = EventModelForm()  # For GET
+
+    if request.method == "POST":
+        form = EventModelForm(request.POST)
+
+        if form.is_valid():
+
+            form.save()
+            return render(request, "event_form.html", {"form": form, "message": "Event Added Successfully"})
+        
+    context={"form":form}
+    return render(request, "event_form.html", context)
+
+
