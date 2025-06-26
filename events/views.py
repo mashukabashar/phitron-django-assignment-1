@@ -29,18 +29,19 @@ def home(request):
 
 def dashboard(request):
 
-    events=Event.objects.all()
-    total_event=events.count()
+    events=Event.objects.select_related("category").prefetch_related("guests").all()
 
-    today_event= Event.objects.filter(date=date.today()).count()
+    counts = Event.objects.aggregate(
+        total=Count('id'),
+        past_events=Count('id', filter=Q(date__lt=date.today())),
+        future_events=Count('id', filter=Q(date__gt=date.today())),
+        today_event=Count('id', filter=Q(date=date.today())),
+    )
 
-    past_events = Event.objects.filter(date__lt=date.today()).count()
-
-    future_events = Event.objects.filter(date__gt=date.today()).count()
-
-    context={"events":events, "total_event":total_event,"past_events":past_events, "future_events":future_events,"today_event":today_event}
+    context={"events":events, "counts":counts}
 
     return render(request, "dashboard.html", context)
+
 
 
 
