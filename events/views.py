@@ -63,8 +63,14 @@ def create_event(request):
 
 
 def view_event(request):
-    events=Event.objects.all()
-    event1=Event.objects.get(id=1)
-    return render(request, "show_event.html",{"events":events, "event_1":event1})
+
+    
+    # events=Event.objects.all()
+    # event1=Event.objects.get(id=1)
+    # return render(request, "show_event.html",{"categories":categories, "event_1":event1})
+
+
+    categories=Category.objects.prefetch_related('event').all()
+    return render(request, "show_event.html",{"categories":categories})
 
 

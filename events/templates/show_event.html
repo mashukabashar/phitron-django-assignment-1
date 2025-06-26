@@ -8,18 +8,22 @@
 <body>
     <div>
         <ul>
-        {% for event in events  %}
+        {% for category in categories  %}
         <li>
-            {{event}}
+            <p>{{category.name}}</p>
+            {% for event in category.event.all %}
+            <p>{{event.name}}</p>
+            {% endfor %}
+            
         </li>
         {% endfor %}
         </ul>
         
-    </div>
+    {% comment %} </div>
 
     <div>
         {{event_1}}
-    </div>
+    </div> {% endcomment %}
     
 </body>
 </html>
