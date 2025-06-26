@@ -5,7 +5,7 @@ from events.models import Category, Event, Participant
 from datetime import date
 from django.db.models import Q, Count, Max, Min, Avg
 from django.contrib import messages
-
+# from django.utils.timezone import localdate
 
 # Create your views here.
 
@@ -41,7 +41,6 @@ def dashboard(request):
     context={"events":events, "counts":counts}
 
     return render(request, "dashboard.html", context)
-
 
 
 
