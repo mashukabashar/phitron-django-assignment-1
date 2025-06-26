@@ -10,3 +10,8 @@ def show_event(request):
 
 def contact(request):
     return HttpResponse("<h1>This is our contact page</h1>")
+
+def show_specific_event(request, id):
+    print("id", id)
+    print("id type", type(id))
+    return HttpResponse(f"This is specific event page {id}");
