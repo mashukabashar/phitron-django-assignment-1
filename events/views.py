@@ -21,4 +21,13 @@ def dashboard(request):
     return render(request, "dashboard.html")
 
 def test(request):
-    return render(request, "test.html")
+    names= ["Mashuka","Diya", "Ananna", "Priyongboda"]
+    count=0
+    for name in names:
+        count=count+1
+
+    context={"names": names,
+             "age":23,
+             "count":count}
+    
+    return render(request, "test.html", context)

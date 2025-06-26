@@ -8,7 +8,21 @@
     <link rel="stylesheet" href="{% static "css/style.css" %}">
 </head>
 <body>
-    <p class="lal-bg">Test</p>
-    <img src="{% static "images/Plantation.jpeg" %}" alt="">
+
+    {% comment %} <p class="lal-bg">Test</p>
+    <img src="{% static "images/Plantation.jpeg" %}" alt=""> {% endcomment %}
+    {% comment %} {{name}}
+    {% endcomment %}
+
+
+    {% for name in names %}
+    {% if not name == "D" %}
+    <p>{{name}}</p>
+    {% endif %}
+    {% endfor %}
+    {{count}}
+    <p class="lal-bg">{{age}}</p>
+
+
 </body>
 </html>
