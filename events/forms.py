@@ -47,7 +47,7 @@ class StyledFormMixin:
 class EventModelForm(StyledFormMixin, forms.ModelForm):
     class Meta:
         model = Event
-        fields = ['category', 'guests', 'name', 'description', 'date', 'time','location']
+        fields = ['name', 'description', 'date', 'time','location', 'category', 'guests']
         widgets = {
             'date': forms.SelectDateWidget,
             'guests': forms.CheckboxSelectMultiple,

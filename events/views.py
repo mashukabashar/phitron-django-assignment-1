@@ -61,3 +61,10 @@ def create_event(request):
     return render(request, "event_form.html", context)
 
 
+
+def view_event(request):
+    events=Event.objects.all()
+    event1=Event.objects.get(id=1)
+    return render(request, "show_event.html",{"events":events, "event_1":event1})
+
+
