@@ -9,7 +9,7 @@ from django.utils.timezone import localdate
 
 
 def home(request):
-    return HttpResponse("<h1 style='color:red'>Welcome To The Event Management System</h1>")
+    return render(request, "home.html")
 
 
 
