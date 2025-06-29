@@ -5,20 +5,7 @@ from events.models import Category, Event, Participant
 from datetime import date
 from django.db.models import Q, Count, Max, Min, Avg
 from django.contrib import messages
-# from django.utils.timezone import localdate
-
-# Create your views here.
-
-# def show_event(request):
-#     return HttpResponse("<h1 style='color:green'>This is our event list</h1>")
-
-# def contact(request):
-#     return HttpResponse("<h1>This is our contact page</h1>")
-
-# def show_specific_event(request, id):
-#     print("id", id)
-#     print("id type", type(id))
-#     return HttpResponse(f"This is specific event page {id}");
+from django.utils.timezone import localdate
 
 
 def home(request):
@@ -63,21 +50,6 @@ def dashboard(request):
 
 
 
-def test(request):
-    names= ["Mashuka","Diya", "Ananna", "Priyongboda"]
-    count=0
-    for name in names:
-        count=count+1
-
-    context={"names": names,
-             "age":23,
-             "count":count}
-    
-    return render(request, "test.html", context)
-
-
-
-
 def create_event(request):
     participants=Participant.objects.all()
     form = EventModelForm()  # For GET
@@ -95,17 +67,6 @@ def create_event(request):
     return render(request, "event_form.html", context)
 
 
-
-def view_event(request):
-
-
-    # events=Event.objects.all()
-    # event1=Event.objects.get(id=1)
-    # return render(request, "show_event.html",{"categories":categories, "event_1":event1})
-
-
-    categories=Category.objects.prefetch_related('event').all()
-    return render(request, "show_event.html",{"categories":categories})
 
 
 def update_event(request, id):
@@ -137,5 +98,12 @@ def delete_event(request, id):
 
         messages.success(request,'Event Deleted Successfully')
         return redirect('dashboard')
+    else:
+        messages.error(request,'Something Went Wrong!')
+        return redirect('dashboard')
+
+
+
+
 
 
