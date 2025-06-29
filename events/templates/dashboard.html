@@ -178,7 +178,7 @@
                 </p>
                 
 
-                <div class="grid grid-cols-6 text-medium font-semibold text-gray-500 mb-4 gap-4">
+                <div class="grid grid-cols-8 text-medium font-semibold text-gray-500 mb-4 gap-4">
 
 
                     <div>EVENT TITLE</div>
@@ -192,11 +192,13 @@
                     <div>TIME </div>
 
                     <div>LOCATION </div>
+
+                    {% comment %} <div>EDIT </div> {% endcomment %}
                    
                 </div>
 
                 {% for event in events %}
-                <div class="grid grid-cols-6 items-center mb-4 gap-4">
+                <div class="grid grid-cols-8 items-center mb-4 gap-4">
 
 
                     <div class="flex items-center gap-2">
@@ -230,6 +232,14 @@
 
                     <div>
                         <span class="text-gray-500 text-sm">{{event.location}}</span>
+                    </div>
+
+                    <div>
+                        <a href='{% url "update-event" event.id %}' class="px-2 py-1 bg-green-600">Edit</a>
+                    </div>
+
+                    <div>
+                        <button class="px-2 py-1 bg-red-600">Delete</span>
                     </div>
                    
                 </div>

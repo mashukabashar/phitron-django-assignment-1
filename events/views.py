@@ -108,3 +108,22 @@ def view_event(request):
     return render(request, "show_event.html",{"categories":categories})
 
 
+def update_event(request, id):
+    event=Event.objects.get(id=id)
+
+    participants=Participant.objects.all()
+    form = EventModelForm(instance=event)  # For GET & instance for update 
+
+    if request.method == "POST":
+        form = EventModelForm(request.POST, instance=event) # instance for update
+
+        if form.is_valid():
+
+            form.save()
+            messages.success(request,'Event Updated Successfully')
+            return redirect('update-event', id)
+        
+    context={"form":form}
+    return render(request, "event_form.html", context)
+
+
