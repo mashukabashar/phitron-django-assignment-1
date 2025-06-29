@@ -28,6 +28,8 @@ def home(request):
 
 
 def dashboard(request):
+    type=request.GET.get('type','all')
+    print(type)
 
     events=Event.objects.select_related("category").prefetch_related("guests").all()
 
@@ -37,6 +39,22 @@ def dashboard(request):
         future_events=Count('id', filter=Q(date__gt=date.today())),
         today_event=Count('id', filter=Q(date=date.today())),
     )
+
+    base_query=Event.objects.select_related("category").prefetch_related("guests")
+
+    if type=='all':
+        events=base_query.all()
+
+    elif type=='past_events':
+        events=base_query.filter(Q(date__lt=date.today()))
+
+    elif type=='future_events':
+        events=base_query.filter(Q(date__gt=date.today()))
+
+    elif type=='today_event':
+        events=base_query.filter(Q(date=date.today()))
+
+
 
     context={"events":events, "counts":counts}
 
