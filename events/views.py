@@ -29,7 +29,7 @@ def home(request):
 
 def dashboard(request):
     type=request.GET.get('type','all')
-    print(type)
+    # print(type)
 
     events=Event.objects.select_related("category").prefetch_related("guests").all()
 
@@ -56,7 +56,7 @@ def dashboard(request):
 
 
 
-    context={"events":events, "counts":counts}
+    context={"events":events, "counts":counts, "type":type}
 
     return render(request, "dashboard.html", context)
 
@@ -88,7 +88,8 @@ def create_event(request):
         if form.is_valid():
 
             form.save()
-            return render(request, "event_form.html", {"form": form, "message": "Event Added Successfully"})
+            messages.success(request,'Event Created Successfully')
+            return redirect('create-event')
         
     context={"form":form}
     return render(request, "event_form.html", context)

@@ -165,7 +165,18 @@
 
             <div class="bg-white rounded-xl p-6 shadow-sm">
 
-                <p class="text-2xl font-semibold mb-4">All Events</p>
+                <p class="text-2xl font-semibold mb-4">
+                    {% if type == 'past_events' %}
+                        Past Events
+                    {% elif type == 'future_events' %}
+                        Future Events
+                    {% elif type == 'today_event' %}
+                        Today's Events
+                    {% else %}
+                        All Events
+                    {% endif %}
+                </p>
+                
 
                 <div class="grid grid-cols-6 text-medium font-semibold text-gray-500 mb-4 gap-4">
 

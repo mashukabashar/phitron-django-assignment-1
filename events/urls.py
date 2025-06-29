@@ -8,6 +8,6 @@ urlpatterns = [
     # path("show_event/<id>/",show_specific_event),
     path("dashboard/",dashboard, name='dashboard'),
     path("test/",test),
-    path("create-event/",create_event),
+    path("create-event/",create_event, name="create-event"),
     path("view-event/",view_event)
 ]
