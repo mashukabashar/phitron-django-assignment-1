@@ -1,5 +1,5 @@
 from django.urls import path
-from events.views import dashboard, test, create_event, view_event, update_event
+from events.views import dashboard, test, create_event, view_event, update_event, delete_event
 
 urlpatterns = [
     # path('show_event/',show_event),
@@ -11,4 +11,5 @@ urlpatterns = [
     path("create-event/",create_event, name="create-event"),
     path("view-event/",view_event),
     path("update-event/<int:id>/",update_event, name="update-event"),
+    path("delete-event/<int:id>/",delete_event, name="delete-event"),
 ]

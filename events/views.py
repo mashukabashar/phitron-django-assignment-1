@@ -127,3 +127,15 @@ def update_event(request, id):
     return render(request, "event_form.html", context)
 
 
+
+
+def delete_event(request, id):
+
+    if request.method == "POST":
+        event=Event.objects.get(id=id)
+        event.delete()
+
+        messages.success(request,'Event Deleted Successfully')
+        return redirect('dashboard')
+
+

@@ -239,7 +239,10 @@
                     </div>
 
                     <div>
-                        <button class="px-2 py-1 bg-red-600">Delete</span>
+                         <form action="{% url 'delete-event' event.id %}" method="POST">
+                            {% csrf_token %}
+                            <button type='submit' class="px-2 py-1 bg-rose-600">Delete</button>
+                         </form>
                     </div>
                    
                 </div>
