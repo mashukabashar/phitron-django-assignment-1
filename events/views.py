@@ -56,7 +56,7 @@ def dashboard(request):
 
 
 def create_event(request):
-    participants=Participant.objects.all()
+    
     form = EventModelForm()  # For GET
 
     if request.method == "POST":
@@ -73,7 +73,7 @@ def create_event(request):
 
 
 def create_category(request):
-    category=Category.objects.all()
+    
     form = CategoryModelForm()  # For GET
 
     if request.method == "POST":
@@ -90,7 +90,7 @@ def create_category(request):
 
 
 def create_participant(request):
-    participant=Participant.objects.all()
+    
     form = ParticipantModelForm()  # For GET
 
     if request.method == "POST":
@@ -109,9 +109,9 @@ def create_participant(request):
 
 
 def update_event(request, id):
+
     event=Event.objects.get(id=id)
 
-    participants=Participant.objects.all()
     form = EventModelForm(instance=event)  # For GET & instance for update 
 
     if request.method == "POST":
@@ -128,9 +128,9 @@ def update_event(request, id):
 
 
 def update_category(request, id):
+
     category=Category.objects.get(id=id)
 
-    participants=Participant.objects.all()
     form = CategoryModelForm(instance=category)  # For GET & instance for update 
 
     if request.method == "POST":
@@ -150,9 +150,9 @@ def update_category(request, id):
 
 
 def update_participant(request, id):
+
     participant=Participant.objects.get(id=id)
 
-    participants=Participant.objects.all()
     form = ParticipantModelForm(instance=participant)  # For GET & instance for update 
 
     if request.method == "POST":
