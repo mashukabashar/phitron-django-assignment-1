@@ -82,3 +82,4 @@ class ParticipantModelForm(StyledFormMixin, forms.ModelForm):
         self.apply_styled_widgets()
 
 
+# email validation
