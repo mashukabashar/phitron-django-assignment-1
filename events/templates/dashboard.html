@@ -69,7 +69,6 @@
 
             <div>
                 <p class="text-3xl font-semibold mb-1">{{unique_participant_count.total}}</p>
-                {% comment %} <p class="text-sm text-gray-500">11 last month</p> {% endcomment %}
             </div>
 
             <div class="bg-blue-100 rounded-full p-3">
@@ -99,7 +98,6 @@
 
             <div>
                 <p class="text-3xl font-semibold mb-1">{{counts.total}}</p>
-                {% comment %} <p class="text-sm text-gray-500">11 last month</p> {% endcomment %}
             </div>
 
             <div class="bg-blue-100 rounded-full p-3">
@@ -127,7 +125,6 @@
 
             <div>
                 <p class="text-3xl font-semibold mb-1">{{counts.past_events}}</p>
-                {% comment %} <p class="text-sm text-gray-500">11 last month</p> {% endcomment %}
             </div>
 
             <div class="bg-green-100 rounded-full p-3">
@@ -152,7 +149,6 @@
 
             <div>
                 <p class="text-3xl font-semibold mb-1">{{counts.future_events}}</p>
-                {% comment %} <p class="text-sm text-gray-500">11 last month</p> {% endcomment %}
             </div>
 
             <div class="bg-yellow-100 rounded-full p-3">
@@ -177,7 +173,6 @@
 
             <div>
                 <p class="text-3xl font-semibold mb-1">{{counts.today_event}}</p>
-                {% comment %} <p class="text-sm text-gray-500">11 last month</p> {% endcomment %}
             </div>
 
             <div class="bg-purple-100 rounded-full p-3">
@@ -226,14 +221,13 @@
 
         {% for event in events %}
         <div class="grid grid-cols-8 items-center mb-4 gap-4">
-            <div class="flex items-center gap-2">
-                <div class="w-2 h-2 bg-green-500 rounded-full"></div>
-                <div><span>{{ event.name }}</span></div>
+            <div>
+                <div class="text-gray-500 text-sm"><span>{{ event.name }}</span></div>
             </div>
-            <div><span class="px-3 py-1 rounded-sm bg-blue-50 text-blue-600 text-sm">{{ event.category }}</span></div>
-            <div class="flex -space-x-3">
+            <div class="bg-blue-50 text-blue-600 text-sm">{{ event.category }}</div>
+            <div>
                 {% for members in event.guests.all %}
-                <div class="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-white text-sm">{{ members.name|slice:":2" }}</div>
+                <div class="text-gray-500 text-sm">{{ members.name}}</div>
                 {% endfor %}
             </div>
             <div><span class="text-gray-500 text-sm">{{ event.date }}</span></div>
@@ -259,18 +253,30 @@
     <div class="bg-white rounded-xl p-6 shadow-sm">
         <p class="text-2xl font-semibold mb-4">Participant Information</p>
 
-        <div class="grid grid-cols-2 text-medium font-semibold text-gray-500 mb-4 gap-4">
+        <div class="grid grid-cols-4 text-medium font-semibold text-gray-500 mb-4 gap-4">
             <div>Name</div>
             <div>Email</div>
         </div>
 
         {% for participant in participants %}
-        <div class="grid grid-cols-2 items-center mb-4 gap-4">
-            <div class="flex items-center gap-2">
-                <div class="w-2 h-2 bg-green-500 rounded-full"></div>
-                <div><span>{{ participant.name }}</span></div>
+        <div class="grid grid-cols-4 items-center mb-4 gap-4">
+
+            <div>
+                <div class="text-blue-500 text-sm"><span>{{ participant.name }}</span></div>
             </div>
+
             <div><span class="text-gray-500 text-sm">{{ participant.email }}</span></div>
+
+            <div>
+                <a href="{% url 'update-participant' participant.id %}" class="px-2 py-1 bg-green-600 text-white rounded">Edit</a>
+            </div>
+
+             <div>
+                <form action="{% url 'delete-participant' participant.id %}" method="POST">
+                    {% csrf_token %}
+                    <button type="submit" class="px-2 py-1 bg-rose-600 text-white rounded">Delete</button>
+                </form>
+            </div> 
         </div>
         {% endfor %}
     </div>
@@ -281,3 +287,4 @@
 
 </body>
 </html>
+

@@ -181,6 +181,19 @@ def delete_event(request, id):
     else:
         messages.error(request,'Something Went Wrong!')
         return redirect('dashboard')
+    
+
+def delete_participant(request, id):
+
+    if request.method == "POST":
+        participant=Participant.objects.get(id=id)
+        participant.delete()
+
+        messages.success(request,'Participant Deleted Successfully')
+        return redirect('dashboard')
+    else:
+        messages.error(request,'Something Went Wrong!')
+        return redirect('dashboard')
 
 
 
