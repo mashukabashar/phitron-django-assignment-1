@@ -3,7 +3,6 @@ from django.db import models
 class Participant(models.Model):
     name = models.CharField(max_length=100)
     email = models.EmailField(unique=True)
-    # events = models.ManyToManyField(Event, related_name='participants')
 
     def __str__(self):
         return self.name
@@ -39,6 +38,5 @@ class Event(models.Model):
     location = models.CharField(max_length=200)
 
     def __str__(self):
-        # return f"{self.name} on {self.date}"
         return f"{self.name}"
 
