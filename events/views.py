@@ -19,6 +19,7 @@ def dashboard(request):
 
     events=Event.objects.select_related("category").prefetch_related("guests").all()
     participants=Participant.objects.all()
+    # category=Category.objects.all()
 
     counts = Event.objects.aggregate(
         total=Count('id'),
@@ -28,6 +29,8 @@ def dashboard(request):
     )
 
     unique_participant_count = Participant.objects.filter(events__isnull=False).distinct().aggregate(total=Count('id'))
+    # category_count=Category.objects.aggregate(total=Count('id'))
+    # print(category_count)
 
     base_query=Event.objects.select_related("category").prefetch_related("guests")
 
@@ -48,7 +51,8 @@ def dashboard(request):
 
 
 
-    context={"events":events, 'participants':participants, "counts":counts, "unique_participant_count":unique_participant_count, "type":type}
+    context={"events":events, 'participants':participants, "counts":counts, 
+             "unique_participant_count":unique_participant_count, "type":type,}
 
     return render(request, "dashboard.html", context)
 
