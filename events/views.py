@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from events.forms import EventModelForm
+from events.forms import EventModelForm, CategoryModelForm, ParticipantModelForm
 from events.models import Category, Event, Participant
 from datetime import date
 from django.db.models import Q, Count, Max, Min, Avg
@@ -16,7 +16,6 @@ def home(request):
 
 def dashboard(request):
     type=request.GET.get('type','all')
-    # print(type)
 
     events=Event.objects.select_related("category").prefetch_related("guests").all()
     participants=Participant.objects.all()
@@ -73,6 +72,40 @@ def create_event(request):
     return render(request, "event_form.html", context)
 
 
+def create_category(request):
+    category=Category.objects.all()
+    form = CategoryModelForm()  # For GET
+
+    if request.method == "POST":
+        form = CategoryModelForm(request.POST)
+
+        if form.is_valid():
+
+            form.save()
+            messages.success(request,'Category Created Successfully')
+            return redirect('create-category')
+        
+    context={"form":form}
+    return render(request, "category_form.html", context)
+
+
+def create_participant(request):
+    participant=Participant.objects.all()
+    form = ParticipantModelForm()  # For GET
+
+    if request.method == "POST":
+        form = ParticipantModelForm(request.POST)
+
+        if form.is_valid():
+
+            form.save()
+            messages.success(request,'Participant Created Successfully')
+            return redirect('create-participant')
+        
+    context={"form":form}
+    return render(request, "participant_form.html", context)
+
+
 
 
 def update_event(request, id):
@@ -94,6 +127,47 @@ def update_event(request, id):
     return render(request, "event_form.html", context)
 
 
+def update_category(request, id):
+    category=Category.objects.get(id=id)
+
+    participants=Participant.objects.all()
+    form = CategoryModelForm(instance=category)  # For GET & instance for update 
+
+    if request.method == "POST":
+        form = CategoryModelForm(request.POST, instance=category) # instance for update
+
+        if form.is_valid():
+
+            form.save()
+            messages.success(request,'Category Updated Successfully')
+            return redirect('update-category', id)
+        
+    context={"form":form}
+    return render(request, "category_form.html", context)
+
+# dashboard e edit button create kore okhan theke update category page e jabe
+
+
+
+def update_participant(request, id):
+    participant=Participant.objects.get(id=id)
+
+    participants=Participant.objects.all()
+    form = ParticipantModelForm(instance=participant)  # For GET & instance for update 
+
+    if request.method == "POST":
+        form = ParticipantModelForm(request.POST, instance=participant) # instance for update
+
+        if form.is_valid():
+
+            form.save()
+            messages.success(request,'Participant Updated Successfully')
+            return redirect('update-participant', id)
+        
+    context={"form":form}
+    return render(request, "participant_form.html", context)
+
+# dashboard e edit button create kore okhan theke update participant page e jabe
 
 
 def delete_event(request, id):
